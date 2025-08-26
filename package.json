@@ -1,9 +1,9 @@
 {
   "dependencies": {
-    "esbuild": "^0.17.16",
+    "esbuild": "^0.18.11",
     "html-minifier": "^4.0.0",
-    "sass": "^1.61.0",
-    "typescript": "^5.0.4"
+    "sass": "^1.63.6",
+    "typescript": "^5.1.6"
   },
   "name": "checkers",
   "author": {
