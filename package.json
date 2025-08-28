@@ -2,7 +2,7 @@
   "dependencies": {
     "esbuild": "^0.25.0",
     "html-minifier": "^4.0.0",
-    "sass": "^1.63.6",
+    "sass": "^1.91.0",
     "typescript": "^5.1.6"
   },
   "name": "checkers",
