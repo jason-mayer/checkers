@@ -1,0 +1,77 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    outputs:
+      pages-artifact: pages
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26
+          cache: npm
+
+      - run: npm ci --include=dev
+
+      - run: npm run build
+
+      - name: Zip web assets
+        run: |
+          cd out
+          zip release-assets.zip \
+            index.min.html \
+            index.min.css \
+            index.min.js
+
+      - name: Upload bundle to release
+        uses: actions/upload-artifact@v7
+        with:
+          path: out/bundle.min.html
+          archive: false
+
+      - name: Upload zip to release
+        uses: actions/upload-artifact@v7
+        with:
+          path: out/release-assets.zip
+          archive: false
+
+      - name: Prepare GitHub Pages
+        run: |
+          mkdir pages
+          cp out/bundle.min.html pages/index.html
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: pages
+
+  deploy-pages:
+    needs: build
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4
