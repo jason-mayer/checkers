@@ -74,7 +74,7 @@ export default class Team {
 
         if (this.side === Side.bottom && move.end[1] === 0)
             move.piece.makeKing()
-        else if (this.side === Side.top && move.end[1] === this.board.size - 1)
+        else if (this.side === Side.top && move.end[1] === this.board!.size - 1)
             move.piece.makeKing()
     }
 

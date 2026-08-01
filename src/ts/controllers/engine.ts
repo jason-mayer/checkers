@@ -43,6 +43,8 @@ export class EngineController implements Controller, EngineOptions {
     decay: number = 4;
     deadPiecePenalty: number = 0;
 
+    [x: string]: any;
+
     constructor(depth: 1 | 2 | 3 = 2, options: Partial<EngineOptions> = {}) {
         if (depth > 3 || depth < 1)
             // depths above 3 (6, see below comment) are really laggy
@@ -95,19 +97,19 @@ export class EngineController implements Controller, EngineOptions {
 
             // recursive helper function to simulate the capture of a piece
             const capture = (move: Move, layer: number, score = 1): number => {
-                move.capturedPiece.virtualCapture(layer)
+                move.capturedPiece!.virtualCapture(layer)
 
-                if (move.capturedPiece.type === PieceType.king)
+                if (move.capturedPiece!.type === PieceType.king)
                     score += this.kingCaptureValue;
 
                 move.piece.virtualMove(move.end, layer)
 
                 capturedPieces[layer] || (capturedPieces[layer] = []);
 
-                capturedPieces[layer].push(move.capturedPiece)
+                capturedPieces[layer].push(move.capturedPiece!)
 
                 if (move.piece.getLegalMoves().find(m => m.capture))
-                    return capture(move.piece.getLegalMoves().find(m => m.capture), layer, score + 1)
+                    return capture(move.piece.getLegalMoves().find(m => m.capture)!, layer, score + 1)
 
                 return score;
             }

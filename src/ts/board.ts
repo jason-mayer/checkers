@@ -13,7 +13,7 @@ export default class Board extends HTMLElement {
         super();
 
         if (size % 2 !== 0)
-            return; // non-even sizes are invalid
+            throw "Invalid size"; // non-even sizes are invalid
 
         this.size = size;
 
@@ -104,7 +104,7 @@ export class Cell extends HTMLElement {
      * Highlights this cell
      */
     highlight() {
-        this.classList.add("highlight")        
+        this.classList.add("highlight")
     }
 
     /**

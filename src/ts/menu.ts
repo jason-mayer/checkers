@@ -2,7 +2,7 @@ import Controller from "./controller";
 import * as Controllers from './controllers/index'
 
 const controllers = Object.entries(Controllers).map(c => c[1])
-const selected = []
+const selected: Controller[] = [];
 
 export function loadMenu() {
     const teams = [document.getElementById("team1") as HTMLDivElement, document.getElementById("team2") as HTMLDivElement]
@@ -21,17 +21,17 @@ export function loadMenu() {
                 document.querySelectorAll(`div#team${index + 1} > div`).forEach(i => i.classList.remove("selected"))
                 div.classList.add("selected")
                 selected[index] = controller;
-                document.querySelector<HTMLSpanElement>(`span.team${index + 1}`).innerText = ": " + controller.name;
+                document.querySelector<HTMLSpanElement>(`span.team${index + 1}`)!.innerText = ": " + controller.name;
             })
         }
-} 
+}
 
 export function getControllers(): Promise<[Controller, Controller]> {
     return new Promise(res => {
-        document.querySelector("button").addEventListener("click", () => {
+        document.querySelector("button")!.addEventListener("click", () => {
             if (!selected[0] || !selected[1])
                 return;
-            
+
             res(selected as [Controller, Controller])
         })
     })
@@ -43,7 +43,7 @@ export function hideMenu() {
         if (child.tagName.toLowerCase() === "script")
             continue;
 
-        child.classList.add("start-menu-item", "hidden"); 
+        child.classList.add("start-menu-item", "hidden");
     }
 }
 
