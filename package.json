@@ -1,9 +1,9 @@
 {
-  "dependencies": {
-    "esbuild": "^0.25.0",
-    "html-minifier": "^4.0.0",
-    "sass": "^1.63.6",
-    "typescript": "^5.1.6"
+  "devDependencies": {
+    "esbuild": "^0.28.1",
+    "html-minifier-next": "^7.5.2",
+    "sass": "^1.102.0",
+    "typescript": "^7.0.2"
   },
   "name": "checkers",
   "author": {
@@ -12,6 +12,10 @@
   "scripts": {
     "check": "tsc",
     "start": "cd scripts && start.bat",
-    "pack": "cd scripts && pack.bat"
+    "build": "tsc && node scripts/build.mjs"
+  },
+  "allowScripts": {
+    "@parcel/watcher@2.6.0": true,
+    "esbuild@0.28.1": true
   }
 }
