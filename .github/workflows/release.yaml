@@ -42,17 +42,12 @@ jobs:
             index.min.css \
             index.min.js
 
-      - name: Upload bundle to release
-        uses: actions/upload-artifact@v7
+      - name: Upload bundle.min.html to release
+        uses: softprops/action-gh-release@v2
         with:
-          path: out/bundle.min.html
-          archive: false
-
-      - name: Upload zip to release
-        uses: actions/upload-artifact@v7
-        with:
-          path: out/release-assets.zip
-          archive: false
+          files: |
+            out/bundle.min.html
+            out/release-assets.zip
 
       - name: Prepare GitHub Pages
         run: |
