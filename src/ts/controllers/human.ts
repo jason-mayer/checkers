@@ -28,28 +28,28 @@ export class HumanController implements Controller {
                 move.piece.style.cursor = "pointer"
                 move.piece.draggable = true;
 
-                const cell = board.getCell(move.end[0], move.end[1])
+                const cell = board.getCell(move.end[0], move.end[1])!
 
                 cell.addEventListener("dragover", event => {
                     event.preventDefault()
-                    if (event.dataTransfer.getData("piece") !== start)
+                    if (event.dataTransfer!.getData("piece") !== start)
                         return;
 
                     cell.highlight()
-                    event.dataTransfer.dropEffect = "move"
+                    event.dataTransfer!.dropEffect = "move"
                 }, { signal: controller.signal })
 
                 move.piece.addEventListener("dragstart", event => {
-                    event.dataTransfer.setData("piece", start)
-                    event.dataTransfer.setDragImage(move.piece, move.piece.offsetWidth/2, move.piece.offsetHeight/2)
+                    event.dataTransfer!.setData("piece", start)
+                    event.dataTransfer!.setDragImage(move.piece, move.piece.offsetWidth / 2, move.piece.offsetHeight / 2)
                 }, { signal: controller.signal })
 
                 cell.addEventListener("dragleave", () => {
                     cell.unHighlight()
                 }, { signal: controller.signal })
-                
+
                 cell.addEventListener("drop", event => {
-                    if (event.dataTransfer.getData("piece") !== start)
+                    if (event.dataTransfer!.getData("piece") !== start)
                         return;
 
                     cell.unHighlight()

@@ -3,7 +3,8 @@
         "noEmit": true,
         "target": "ESNext",
         "isolatedModules": true,
-        "moduleResolution": "nodenext"
+        "moduleResolution": "nodenext",
+        "module": "nodenext"
     },
     "files": [
         "src/ts/index.ts",

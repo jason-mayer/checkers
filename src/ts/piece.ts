@@ -23,7 +23,7 @@ export default class Piece extends HTMLElement {
         startingCell.piece = this;
         this.cell = startingCell;
 
-        this.board = team.board;
+        this.board = team.board!;
 
         this.innerHTML = forwardSvg;
 
@@ -34,7 +34,7 @@ export default class Piece extends HTMLElement {
     private getDiagonals(): [number, number][] {
 
         if (!this.board)
-            return;
+            throw "No board";
 
         // unfiltered diagonal array
         let diagonals: [number, number][] = [
@@ -72,7 +72,7 @@ export default class Piece extends HTMLElement {
         const results: Move[] = []
 
         for (const [x, y] of this.getDiagonals()) {
-            const cell = this.board.getCell(x, y)
+            const cell = this.board.getCell(x, y)!;
 
             // if cell is not occupied, move is legal
             if (!cell.piece) {
@@ -128,7 +128,7 @@ export default class Piece extends HTMLElement {
      */
     moveTo(x: number, y: number) {
         // get cell
-        const cell = this.board.getCell(x, y);
+        const cell = this.board.getCell(x, y)!;
 
         // move to cell
         cell.appendChild(this);
@@ -174,7 +174,7 @@ export default class Piece extends HTMLElement {
      */
     virtualMove([x, y]: [number, number], layer: number) {
         // get cell
-        const cell = this.board.getCell(x, y);
+        const cell = this.board.getCell(x, y)!;
 
         // set original data if not set
         if (!this.originalCells[layer]) {
