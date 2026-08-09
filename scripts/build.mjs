@@ -24,7 +24,7 @@ let input = await Promise.all([
     compileAsync('src/scss/index.scss', {
         sourceMap: false,
         style: "compressed",
-    }).then(res => res.css),
+    }).then(res => res.css.trim()),
     fs.readFile("src/html/index.html", "utf-8"),
 ]);
 
@@ -45,12 +45,15 @@ await fs.mkdir('out').catch(_ => null);
 
 
 await Promise.all([
-    minify(bundle).then(b =>
-        fs.writeFile("out/bundle.min.html", b)),
+    minify(bundle, {
+        minifyJS: true,
+        minifyCSS: true
+    }).then(b =>
+        fs.writeFile("out/bundle.html", b)),
     minify(html).then(b =>
-        fs.writeFile("out/index.min.html", b)),
-    fs.writeFile("out/index.min.js", js),
-    fs.writeFile("out/index.min.css", css)
+        fs.writeFile("out/index.html", b)),
+    fs.writeFile("out/index.js", js),
+    fs.writeFile("out/index.css", css)
 ]);
 
 process.exit(0);
