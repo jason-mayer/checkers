@@ -38,21 +38,21 @@ jobs:
         run: |
           cd out
           zip release-assets.zip \
-            index.min.html \
-            index.min.css \
-            index.min.js
+            index.html \
+            index.css \
+            index.js
 
-      - name: Upload bundle.min.html to release
+      - name: Upload bundle.html to release
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            out/bundle.min.html
+            out/bundle.html
             out/release-assets.zip
 
       - name: Prepare GitHub Pages
         run: |
           mkdir pages
-          cp out/bundle.min.html pages/index.html
+          cp out/bundle.html pages/index.html
 
       - uses: actions/upload-pages-artifact@v3
         with:
